@@ -8,14 +8,14 @@
 
 </details>
 
-## 緣由
+## 1、緣由
   The reason
 
 - 我們在進行 Ethereum 乙太坊智能合約開發時，因為部署到以太坊的主網相當花錢，且部署到以太坊測試網也會遇到效能問題（仍要等到區塊被挖出時才部署完成）或是隱私權問題（不想被別人看到自己的智能合約）。
 
 - 本文章即教大家如何在 Windows 作業系統上安裝 Hardhat、Ganache，並用 Ethers.js 及 Metamask 錢包與 Ganache 連接，並且和部署在 Ganache 上的 DEX 去中心化交易所智能合約互動，那麼我們就開始吧！
 
-## 什麼是 Hardhat、Ganache 及 Ethers.js？
+## 2、什麼是 Hardhat、Ganache 及 Ethers.js？
   What are Hardhat, Ganache and Ethers.js?
 
 ### Hardhat
@@ -43,7 +43,7 @@
 
 ![](./images/hardhat-003_ethers.png)
 
-## 在 Windows 作業系統裡建置 Hardhat 開發環境與 Ganache 本地端區塊鏈網路
+## 3、在 Windows 作業系統裡建置 Hardhat 開發環境與 Ganache 本地端區塊鏈網路
   Build Hardhat development environment and Ganache local blockchain network in Windows OS
 
 ### 安裝適用於 Windows 作業系統的套件管理工具 [Chocolatey](https://chocolatey.org/) 
@@ -214,7 +214,7 @@
 
 ![](./images/hardhat-025_metamask.png)
 
-## 使用 Ethers.js 與已部署至區塊鏈上的智能合約溝通
+## 4、使用 Ethers.js 與已部署至區塊鏈上的智能合約溝通
   Communicate with smart contracts deployed on the blockchain using Ethers.js
 
 - 請將上一個步驟的合約地址複製起來，在這裡以【0x71D9698DdF64bfB45471274015c5252c476Ef24f】為例
@@ -267,7 +267,7 @@ main()
 
 ![](./images/hardhat-029_ethersjs.png)
 
-## 使用 Solidity 建置一個簡易 DEX 去中心化交易所智能合約及使用 Ethers.js 與此智能合約互動
+## 5、使用 Solidity 建置一個簡易 DEX 去中心化交易所智能合約及使用 Ethers.js 與此智能合約互動
   Build a simple DEX smart contract using Solidity and interact with this smart contract using Ethers.js
 
 ### 簡介什麼是去中心化交易所
@@ -565,13 +565,13 @@ describe("DEX", function () {
 
 ![](./images/hardhat-036_test.png)
 
-## 總結
+## 6、總結
   Conclusion
 
 - 使用 Ganache 本地端的區塊鏈網路可大大增加開發智能合約的效率，而不需等待 Ethereum Mainnet 或 Testnet 的挖礦時間及成本開銷
 - 透過 Hardhat 框架可以快速的進行智能合約的部署與測試，甚至可以指定多個區塊鏈網路來進行多個合約的操作
 - 使用 Ethers.js 可以較直覺的與不同智能合約來互動，而不需要像 Wwb3.js 一樣有繁瑣的帳號解鎖動作，以加快開發效能
 
-## 本文架構
+## 7、本文架構
 
 ![](./images/hardhat-037_hardhat.png)
