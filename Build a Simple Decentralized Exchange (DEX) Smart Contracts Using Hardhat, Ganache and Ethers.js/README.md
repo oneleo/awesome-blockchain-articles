@@ -4,7 +4,13 @@
 <details>
   <summary>請展開此以查看本文目錄：Contents</summary>
 
-  - [緣由](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#%E7%B7%A3%E7%94%B1)
+  - [1、緣由](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#1%E7%B7%A3%E7%94%B1)
+  - [2、什麼是 Hardhat、Ganache 及 Ethers.js？](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#2%E4%BB%80%E9%BA%BC%E6%98%AF-hardhatganache-%E5%8F%8A-ethersjs)
+  - [3、在 Windows 作業系統裡建置 Hardhat 開發環境與 Ganache 本地端區塊鏈網路](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#3%E5%9C%A8-windows-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E8%A3%A1%E5%BB%BA%E7%BD%AE-hardhat-%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E8%88%87-ganache-%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8D%80%E5%A1%8A%E9%8F%88%E7%B6%B2%E8%B7%AF)
+  - [4、使用 Ethers.js 與已部署至區塊鏈上的智能合約溝通](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#4%E4%BD%BF%E7%94%A8-ethersjs-%E8%88%87%E5%B7%B2%E9%83%A8%E7%BD%B2%E8%87%B3%E5%8D%80%E5%A1%8A%E9%8F%88%E4%B8%8A%E7%9A%84%E6%99%BA%E8%83%BD%E5%90%88%E7%B4%84%E6%BA%9D%E9%80%9A)
+  - [5、使用 Solidity 建置一個簡易 DEX 去中心化交易所智能合約及使用 Ethers.js 與此智能合約互動](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#5%E4%BD%BF%E7%94%A8-solidity-%E5%BB%BA%E7%BD%AE%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93-dex-%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E4%BA%A4%E6%98%93%E6%89%80%E6%99%BA%E8%83%BD%E5%90%88%E7%B4%84%E5%8F%8A%E4%BD%BF%E7%94%A8-ethersjs-%E8%88%87%E6%AD%A4%E6%99%BA%E8%83%BD%E5%90%88%E7%B4%84%E4%BA%92%E5%8B%95)
+  - [6、總結](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#6%E7%B8%BD%E7%B5%90)
+  - [7、本文架構](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Build%20a%20Simple%20Decentralized%20Exchange%20(DEX)%20Smart%20Contracts%20Using%20Hardhat%2C%20Ganache%20and%20Ethers.js#7%E6%9C%AC%E6%96%87%E6%9E%B6%E6%A7%8B)
 
 </details>
 
