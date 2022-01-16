@@ -1,0 +1,11 @@
+# 使用 Hardhat 及 Ethers.js 建立一簡易的 DEX 去中心化交易所
+## 什麼是 Hardhat
+
+<details>
+  <summary>How to generate a recovery phrase (<strong>phrase.prv</strong>)</summary>
+
+```console
+$ cardano-address recovery-phrase generate --size 15 > phrase.prv
+exercise club noble adult miracle awkward problem olympic puppy private goddess piano fatal fashion vacuum
+```
+</details>

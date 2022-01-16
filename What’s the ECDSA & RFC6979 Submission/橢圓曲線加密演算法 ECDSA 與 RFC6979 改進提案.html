@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案 - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.markdown-body kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}.ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}.markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}.ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}.markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}.ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:contain}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;font-family:Source Sans Pro,Helvetica,Arial,sans-serif;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid" style="position: relative;"><h1 id="橢圓曲線加密演算法-ECDSA-與-RFC6979-改進提案"><a class="anchor hidden-xs" href="#橢圓曲線加密演算法-ECDSA-與-RFC6979-改進提案" title="橢圓曲線加密演算法-ECDSA-與-RFC6979-改進提案"><span class="octicon octicon-link"></span></a>橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案</h1><p>橢圓曲線加密演算法（Elliptic Curve Digital Signature Algorithm，ECDSA）是比特幣、以太坊區塊鏈所使用的非對稱式金鑰加密技術，</p><p>可輕易讓貨幣持有者透過私鑰 Private Key（變數：d_A）對資訊進行簽章（Digital Signature），讓所有人使用 Public Key（變數：d, e, p, n, G, Q_A）來進行驗證（或是反向進行秘密傳遞）。</p><p>然而，早期的 ECDSA 演算法中，有一個僅產生一次性使用的臨時簽名變數 k（Ephemeral Key）</p><p>因不夠隨機，又或是忽略了其重要性（如每次收發訊息都使用相同的 k 值），導致駭客可透過反推方式求得 k 值，</p><p>一旦 k 值遭洩，持幣者的 Private Key 也可輕易的被回推計算出來。</p><p>像是早期 <a href="https://www.bbc.com/news/technology-12116051" target="_blank" rel="noopener">Sony PS3</a> 就是每次都使用相同的 k 值，導致遊戲機遭人破解。</p><hr><h2 id="1、流程"><a class="anchor hidden-xs" href="#1、流程" title="1、流程"><span class="octicon octicon-link"></span></a>1、流程</h2><p>而這篇文章，將會簡介什麼是 ECDSA，以及它是如何產生非對稱式金鑰</p><p>接著再介紹如何使用 Private Key、Public Key 進行簽章與檢驗</p><p>以及展示透過 k 值取得 Private Key 推導過程</p><p>最後再說明 RFC6979 針對產生 k 值的改進提案</p><hr><h2 id="2、橢圓曲線"><a class="anchor hidden-xs" href="#2、橢圓曲線" title="2、橢圓曲線"><span class="octicon octicon-link"></span></a>2、橢圓曲線</h2><p>橢圓曲線一般式如下：</p><p><img src="https://i.imgur.com/qsaSpQo.png" alt=""></p><p>而在 ECDSA 內所使用的是特殊規範的橢圓曲線：</p><p><img src="https://i.imgur.com/C8nEqTT.png" alt=""></p><p>條件的設定目的是在為讓  x^3 + dx + e = 0 方程式的 x 能夠存在三個不同的（實數或複數）解好處是 ECDSA 在使用此特殊規範的曲線，總是可以同時找到 P、Q、R 三個點，並且這三個點又符合交換群（Abelian Commutative Group）的特性</p><hr><h2 id="3、交換群"><a class="anchor hidden-xs" href="#3、交換群" title="3、交換群"><span class="octicon octicon-link"></span></a>3、交換群</h2><p>什麼是交換群？就是這個群內的所有元素符合下面 5 條規範</p><p>以現實世界來說，其實就是我們習以為常的「乘法運算」、「加法運算」，像是「2 * 1 = 1 * 2」、「1 +（-1）=（-1）+ 1」等</p><p>而在線性代數的世界裡，我們是可以自己定義「運算」的，像是「P 點 ＊ Q 點 = P 點 ＊ Q 點」。</p><p><img src="https://i.imgur.com/BYqm5Oa.png" alt=""></p><p>在這邊，我們也定義特殊規範的橢圓曲線，它的每一個點都要符合交換群的特性，我們定義一下這個群的符號</p><p><img src="https://i.imgur.com/b4TmmLc.png" alt=""></p><p>而交換群的特性，下面僅列出 ECDSA 會用到的部份</p><p><img src="https://i.imgur.com/IPRK4Pr.png" alt=""></p><hr><h2 id="4、點的加法運算"><a class="anchor hidden-xs" href="#4、點的加法運算" title="4、點的加法運算"><span class="octicon octicon-link"></span></a>4、點的加法運算</h2><p>我們如何進行 ECDSA 點的加法運算呢？因為 ECDSA 一定會找到三個點符合 P + Q +（-R）= O</p><p>我們透過兩種不同的橢圓曲線，分別將 P、Q、R 三點繪畫在座標上，就會很清楚知道它們之間的關係</p><h3 id="考慮-G-（E（d-e）-）（E（-1-0）-）的橢圓曲線"><a class="anchor hidden-xs" href="#考慮-G-（E（d-e）-）（E（-1-0）-）的橢圓曲線" title="考慮-G-（E（d-e）-）（E（-1-0）-）的橢圓曲線"><span class="octicon octicon-link"></span></a>考慮 G =（E（d, e）, +）=（E（-1, 0）, +）的橢圓曲線</h3><p><img src="https://i.imgur.com/FEhX4Ng.png" alt=""></p><p>當 P ≠ Q 時：</p><p><img src="https://cdn.steemitimages.com/DQmc5J24tchDjuWzxa9kds7og3ACUFzUNw3ogDrVZAMuV6C/image.png" alt=""></p><p>當 P = Q 時：</p><p><img src="https://cdn.steemitimages.com/DQmRLgodQwu5shxypAEm642r5E9BXKhau8Benv8U2jh6NF2/image.png" alt=""></p><h3 id="考慮-G-（E（d-e）-）（E（1-1）-）的橢圓曲線"><a class="anchor hidden-xs" href="#考慮-G-（E（d-e）-）（E（1-1）-）的橢圓曲線" title="考慮-G-（E（d-e）-）（E（1-1）-）的橢圓曲線"><span class="octicon octicon-link"></span></a>考慮 G =（E（d, e）, +）=（E（1, 1）, +）的橢圓曲線</h3><p><img src="https://i.imgur.com/NxR2GxV.png" alt=""></p><p>當 P ≠ Q 時：</p><p><img src="https://cdn.steemitimages.com/DQmRfuc2MmDNX8QfGVB88oDn9pq4NzqhnhaeFpoBU3WjPJ4/image.png" alt=""></p><p>當 P = Q 時：</p><p><img src="https://cdn.steemitimages.com/DQmSCAkGWDgRegTd8i5ShEXsekeHQcJcMC7WjBvj4Hfsmar/image.png" alt=""></p><hr><h2 id="5、已知-R--P--Q，求-R"><a class="anchor hidden-xs" href="#5、已知-R--P--Q，求-R" title="5、已知-R--P--Q，求-R"><span class="octicon octicon-link"></span></a>5、已知 R = P + Q，求 R</h2><p>因為 P、Q、（-R）三點共線，所以我們可以透過求 P、Q 斜率，計算出 R 點。</p><p><img src="https://i.imgur.com/uyK8mSX.png" alt=""></p><hr><h2 id="6、點的乘法運算"><a class="anchor hidden-xs" href="#6、點的乘法運算" title="6、點的乘法運算"><span class="octicon octicon-link"></span></a>6、點的乘法運算</h2><p>那我們如何進行 ECDSA 點的乘法運算呢？可以視做連續的加法來比照辦理就好</p><p><img src="https://i.imgur.com/D6yZFPx.png" alt=""></p><hr><h2 id="7、質數有限體"><a class="anchor hidden-xs" href="#7、質數有限體" title="7、質數有限體"><span class="octicon octicon-link"></span></a>7、質數有限體</h2><p>雖然在橢圓曲線上能夠取得無限多種不同的 P 點及 Q 點，但我們在使用 ECDSA 時並不會無限制的擴張，所以這時會將質數有限體 GF（p）的特性帶入，符號如下：</p><p><img src="https://i.imgur.com/K1DdUeR.png" alt=""></p><p>而符合質數有限體的橢圓曲線，符號如下：</p><p><img src="https://i.imgur.com/4tjbPvq.png" alt=""></p><p>使得 ECDSA 用的橢圓曲線會有如下特性：</p><p><img src="https://i.imgur.com/21zuwmX.png" alt=""></p><hr><h2 id="8、反元素測試"><a class="anchor hidden-xs" href="#8、反元素測試" title="8、反元素測試"><span class="octicon octicon-link"></span></a>8、反元素測試</h2><p>有點混亂了嗎？沒關係，我們來舉個例子吧！</p><p>我們考慮使用 d = 1，e = 1，p = 13 的橢圓曲線如下</p><p>註：因為所有的變數會被限制在 13 - 1 = 12 內，所以均要在計算完畢後進行取餘（mod）運算，以限制範圍</p><p><img src="https://i.imgur.com/RYNyLiR.png" alt=""></p><p>來小小測試一下在橢圓曲線上的（1, 4）這一個點，是符合上述條件的</p><p><img src="https://i.imgur.com/PKqQz5V.png" alt=""></p><p>有了限制條件，我們就可以列舉出所有符合 d = 1，e = 1，p = 13 的橢圓曲線的點，如下：</p><p><img src="https://i.imgur.com/OuqNwOJ.png" alt=""></p><p>還記得群的概念嗎？所有的元素都會有一個反元素</p><p><img src="https://i.imgur.com/shKGJ0O.png" alt=""></p><p>那我們就來測試看看是否所有的點都有符合這個特性，找了一個點（4, 2）來進行測試</p><p><img src="https://i.imgur.com/JrRlUcW.png" alt=""></p><p>可以發現（4, 11）這個點也在 d = 1，e = 1，p = 13 的橢圓曲線內，得以證明確實有符合群的各大特性，所以經過計算，我們就可以列出一個反元素速查表：</p><table>
+<thead>
+<tr>
+<th style="text-align:center">P</th>
+<th style="text-align:center">-P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">(0, 1)</td>
+<td style="text-align:center">(0, 12)</td>
+</tr>
+<tr>
+<td style="text-align:center">(1, 4)</td>
+<td style="text-align:center">(1, 9)</td>
+</tr>
+<tr>
+<td style="text-align:center">(4, 2)</td>
+<td style="text-align:center">(4, 11)</td>
+</tr>
+<tr>
+<td style="text-align:center">(5, 1)</td>
+<td style="text-align:center">(5, 12)</td>
+</tr>
+<tr>
+<td style="text-align:center">(7, 0)</td>
+<td style="text-align:center">(7, 0)</td>
+</tr>
+<tr>
+<td style="text-align:center">(8, 1)</td>
+<td style="text-align:center">(8, 12)</td>
+</tr>
+<tr>
+<td style="text-align:center">(10, 6)</td>
+<td style="text-align:center">(10, 7)</td>
+</tr>
+<tr>
+<td style="text-align:center">(11, 2)</td>
+<td style="text-align:center">(11, 11)</td>
+</tr>
+</tbody>
+</table><hr><h2 id="9、加法測試，已知-R--P--Q，求-R"><a class="anchor hidden-xs" href="#9、加法測試，已知-R--P--Q，求-R" title="9、加法測試，已知-R--P--Q，求-R"><span class="octicon octicon-link"></span></a>9、加法測試，已知 R = P + Q，求 R</h2><p>接下來就可以依樣畫葫蘆，透過 P + Q 來計算 R 點了</p><p>假設 P 點為（4, 2），Q 點為（10, 6）</p><p><img src="https://i.imgur.com/gFygDEV.png" alt=""></p><p>這邊會讓人不知道如何進行的是分數的取餘計算，下方為計算方法：</p><p><img src="https://i.imgur.com/qP3hTTo.png" alt=""></p><p>接下來繼續計算 R 點</p><p><img src="https://i.imgur.com/mSU0e6x.png" alt=""></p><p>計算出來的 R 點也確實在 d = 1，e = 1，p = 13 的橢圓曲線內，同樣符合質數有限體的規範。</p><p><img src="https://i.imgur.com/IiRVRkW.png" alt=""></p><hr><h2 id="10、乘法測試"><a class="anchor hidden-xs" href="#10、乘法測試" title="10、乘法測試"><span class="octicon octicon-link"></span></a>10、乘法測試</h2><p>接下來要介紹點的乘法，上面有提到點的乘法可以看作是連續的點的加法，在這邊同樣以 P 點為（4, 2）來做計算</p><p><img src="https://i.imgur.com/EFghfUM.png" alt=""></p><p>首先計算（4, 2）+（4, 2）</p><p><img src="https://i.imgur.com/zwfT0TI.png" alt=""></p><p>我們可以得到 （4, 2）+（4, 2）=（8, 1），仍在體的規範內，再來我們計算（8, 1）+（4, 2）</p><p><img src="https://i.imgur.com/sDnghJ5.png" alt=""></p><p>最後我們得到（4, 2）+（4, 2）+（4, 2）的答案為（10, 6），證實整個 d = 1，e = 1，p = 13 的橢圓曲線內的點都在體的規範內</p><p><img src="https://i.imgur.com/25i2K0U.png" alt=""></p><hr><h2 id="11、數位簽章及驗章"><a class="anchor hidden-xs" href="#11、數位簽章及驗章" title="11、數位簽章及驗章"><span class="octicon octicon-link"></span></a>11、數位簽章及驗章</h2><p>在我們瞭解了橢圓曲線的概論後</p><p>我們接著就要透過橢圓曲線來進行資訊簽章，以下是概念圖（截取至<a href="https://zh.wikipedia.org/wiki/%E6%95%B8%E4%BD%8D%E7%B0%BD%E7%AB%A0" target="_blank" rel="noopener">維基百科</a>）：</p><p><img src="https://cdn.steemitimages.com/DQmQweTHw1KuX32xXi1EbAAjiFqNKpas3nnPduxB2xsLMw7/Digital_Signature_diagram_zh-CN.png" alt=""></p><p>首先我們要先透過橢圓曲線及私鑰來建立公鑰</p><p><img src="https://i.imgur.com/WEQszvR.png" alt=""></p><p>透過橢圓曲線、私鑰來進行簽章</p><p><img src="https://i.imgur.com/xd7IvwD.png" alt=""></p><p>透過橢圓曲線、公鑰來進行驗章</p><p><img src="https://i.imgur.com/IwbFt4L.png" alt=""></p><p>以下證明為何 r = x_c 就代表證明驗章通過</p><p><img src="https://i.imgur.com/4mivu0V.png" alt=""></p><hr><h2 id="12、Ephemeral-Key-k-的重要性"><a class="anchor hidden-xs" href="#12、Ephemeral-Key-k-的重要性" title="12、Ephemeral-Key-k-的重要性"><span class="octicon octicon-link"></span></a>12、Ephemeral Key k 的重要性</h2><p>為什麼 Ephemeral Key k 那麼重要？假設我們每次在進行簽章時都使用相同的 k 值，或是選擇一個沒有那麼隨機產生出來的 k 值，導致駭客可透過反推方式求得 k 值，<br>
+一旦 k 值遭洩，持幣者的 Private Key 也可輕易的被回推計算出來。</p><p><img src="https://i.imgur.com/CSQHZML.png" alt=""></p><p>所以這就是為什麼 RFC6979 提出我們需要有較佳的 k 值選法，以下是最簡式，<br>
+使用私鑰、每次都不一樣的資訊來進行 k 值選定，以確保 k 值足夠隨機</p><p><img src="https://i.imgur.com/yyR9usO.png" alt=""></p><hr><h2 id="13、結語"><a class="anchor hidden-xs" href="#13、結語" title="13、結語"><span class="octicon octicon-link"></span></a>13、結語</h2><p>經過了一大串的說明，我們不論在離線的冷錢包（Cold Wallet）、在線的熱錢包（Hot Wallet）、印在紙上的紙錢包（Paper Wallet）…等選擇上</p><p>都一定要選用符合 RFC6979 提案的 k 值選定，以確保私鑰不會遭人破解</p><hr><h2 id="14、參考資料"><a class="anchor hidden-xs" href="#14、參考資料" title="14、參考資料"><span class="octicon octicon-link"></span></a>14、參考資料</h2><ul>
+<li>
+<p><a href="https://tools.ietf.org/html/rfc6979" target="_blank" rel="noopener">Request for Comments 6979</a></p>
+</li>
+<li>
+<p><a href="https://tools.ietf.org/html/rfc6979#section-3.2" target="_blank" rel="noopener">Request for Comments 6979 流程</a></p>
+</li>
+<li>
+<p><a href="https://eprint.iacr.org/2013/734.pdf" target="_blank" rel="noopener">Elliptic Curve Cryptography in Practice</a></p>
+</li>
+<li>
+<p><a href="http://www.wanbizu.com/baike/201412083991.html" target="_blank" rel="noopener">RFC6979 講解：分分鐘搞懂 RFC6979</a></p>
+</li>
+<li>
+<p><a href="https://my.oschina.net/u/1382972/blog/330657" target="_blank" rel="noopener">DSA簽名算法筆記</a></p>
+</li>
+<li>
+<p><a href="https://www.math.sinica.edu.tw/www/file_upload/summer/crypt2017/data/2017/%E4%B8%8A%E8%AA%B2%E8%AC%9B%E7%BE%A9/%5B20170726%5D%5B%E5%AF%86%E7%A2%BC%E8%B2%A8%E5%B9%A3%E8%88%87%E5%8D%80%E5%A1%8A%E9%8F%88%E5%8E%9F%E7%90%86%5D.pdf" target="_blank" rel="noopener">密碼貨幣與區塊鏈原理</a></p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm" target="_blank" rel="noopener">Elliptic Curve Digital Signature Algorithm</a></p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Digital_Signature_Algorithm" target="_blank" rel="noopener">Digital Signature Algorithm</a></p>
+</li>
+<li>
+<p><a href="https://ec-python.readthedocs.io/en/latest/_modules/ecpy/ecrand.html" target="_blank" rel="noopener">Source code for ecpy.ecrand</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cslashm/ECPy/blob/master/src/ecpy/ecrand.py" target="_blank" rel="noopener">cslashm/ECPy/src/ecpy/ecrand.py</a></p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/0c27e5b51cdd" target="_blank" rel="noopener">pybitcointools源碼分析之RFC6979</a></p>
+</li>
+<li>
+<p><a href="https://www.8btc.com/article/36023" target="_blank" rel="noopener">進一步探討比特幣簽名中的隨機風險</a></p>
+</li>
+<li>
+<p><a href="https://www.bbc.com/news/technology-12116051" target="_blank" rel="noopener">iPhone hacker publishes secret Sony PlayStation 3 key</a></p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/15fc08422724" target="_blank" rel="noopener">密碼學相關概念</a></p>
+</li>
+<li>
+<p><a href="https://gittobook.org/books/192/MasterBitcoin2CN" target="_blank" rel="noopener">《精通比特幣》第二版 區塊鏈研究社 雲天明聯合出品</a></p>
+</li>
+<li>
+<p><a href="http://gad.qq.com/article/detail/12527" target="_blank" rel="noopener">現代密碼學實踐指南</a></p>
+</li>
+<li>
+<p><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">Tool - Elliptic Curve Points</a></p>
+</li>
+<li>
+<p><a href="https://www.books.com.tw/products/0010638686" target="_blank" rel="noopener">Book - 網路安全與密碼學概論</a></p>
+</li>
+<li>
+<p><a href="https://www.books.com.tw/products/CN11523094" target="_blank" rel="noopener">Book - 密碼編碼學與網絡安全：原理與實踐</a></p>
+</li>
+<li>
+<p><a href="https://www.books.com.tw/products/0010303599" target="_blank" rel="noopener">Book - 近代密碼學與其應用</a></p>
+</li>
+</ul><hr><p>（歡迎社群分享。但引用至政大【以太坊原理與應用開發】課程中的<a href="https://hackmd.io/wApWgkUpR8WJEaLNbYz5Kw" target="_blank" rel="noopener">作業一</a>請註明來自 <a href="https://steemit.com/@oneleo" target="_blank" rel="noopener">oneleo Steemit</a>，及附上原文連結：<a href="https://steemit.com/cryptography/@oneleo/ecdsa-rfc6979" target="_blank" rel="noopener">橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案</a>）</p><hr><p>Donate Cardano ADA：<br>
+DdzFFzCqrhsup2Q4nnhKJJZ5BRuPkYUSPqDJn72t2dtHtVqsz5kQQmopMQR16Sv9qS5NC4w8Kv5P8XrDH2n2FD2akxtrntjc8hbgAmTz</p><div dir="ltr" class="resize-sensor" style="position: absolute; left: -10px; top: -10px; right: 0px; bottom: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav"><li class=""><a href="#橢圓曲線加密演算法-ECDSA-與-RFC6979-改進提案" title="橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案">橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案</a><ul class="nav"><li><a href="#1、流程" title="1、流程">1、流程</a></li><li><a href="#2、橢圓曲線" title="2、橢圓曲線">2、橢圓曲線</a></li><li><a href="#3、交換群" title="3、交換群">3、交換群</a></li><li class=""><a href="#4、點的加法運算" title="4、點的加法運算">4、點的加法運算</a><ul class="nav"><li><a href="#考慮-G-（E（d-e）-）（E（-1-0）-）的橢圓曲線" title="考慮 G =（E（d, e）, +）=（E（-1, 0）, +）的橢圓曲線">考慮 G =（E（d, e）, +）=（E（-1, 0）, +）的橢圓曲線</a></li><li><a href="#考慮-G-（E（d-e）-）（E（1-1）-）的橢圓曲線" title="考慮 G =（E（d, e）, +）=（E（1, 1）, +）的橢圓曲線">考慮 G =（E（d, e）, +）=（E（1, 1）, +）的橢圓曲線</a></li></ul></li><li><a href="#5、已知-R--P--Q，求-R" title="5、已知 R = P + Q，求 R">5、已知 R = P + Q，求 R</a></li><li><a href="#6、點的乘法運算" title="6、點的乘法運算">6、點的乘法運算</a></li><li><a href="#7、質數有限體" title="7、質數有限體">7、質數有限體</a></li><li><a href="#8、反元素測試" title="8、反元素測試">8、反元素測試</a></li><li><a href="#9、加法測試，已知-R--P--Q，求-R" title="9、加法測試，已知 R = P + Q，求 R">9、加法測試，已知 R = P + Q，求 R</a></li><li><a href="#10、乘法測試" title="10、乘法測試">10、乘法測試</a></li><li><a href="#11、數位簽章及驗章" title="11、數位簽章及驗章">11、數位簽章及驗章</a></li><li><a href="#12、Ephemeral-Key-k-的重要性" title="12、Ephemeral Key k 的重要性">12、Ephemeral Key k 的重要性</a></li><li><a href="#13、結語" title="13、結語">13、結語</a></li><li><a href="#14、參考資料" title="14、參考資料">14、參考資料</a></li></ul></li></ul></div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
+        <div class="toc"><ul class="nav"><li class=""><a href="#橢圓曲線加密演算法-ECDSA-與-RFC6979-改進提案" title="橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案">橢圓曲線加密演算法 ECDSA 與 RFC6979 改進提案</a><ul class="nav"><li><a href="#1、流程" title="1、流程">1、流程</a></li><li><a href="#2、橢圓曲線" title="2、橢圓曲線">2、橢圓曲線</a></li><li><a href="#3、交換群" title="3、交換群">3、交換群</a></li><li class=""><a href="#4、點的加法運算" title="4、點的加法運算">4、點的加法運算</a><ul class="nav"><li><a href="#考慮-G-（E（d-e）-）（E（-1-0）-）的橢圓曲線" title="考慮 G =（E（d, e）, +）=（E（-1, 0）, +）的橢圓曲線">考慮 G =（E（d, e）, +）=（E（-1, 0）, +）的橢圓曲線</a></li><li><a href="#考慮-G-（E（d-e）-）（E（1-1）-）的橢圓曲線" title="考慮 G =（E（d, e）, +）=（E（1, 1）, +）的橢圓曲線">考慮 G =（E（d, e）, +）=（E（1, 1）, +）的橢圓曲線</a></li></ul></li><li><a href="#5、已知-R--P--Q，求-R" title="5、已知 R = P + Q，求 R">5、已知 R = P + Q，求 R</a></li><li><a href="#6、點的乘法運算" title="6、點的乘法運算">6、點的乘法運算</a></li><li><a href="#7、質數有限體" title="7、質數有限體">7、質數有限體</a></li><li><a href="#8、反元素測試" title="8、反元素測試">8、反元素測試</a></li><li><a href="#9、加法測試，已知-R--P--Q，求-R" title="9、加法測試，已知 R = P + Q，求 R">9、加法測試，已知 R = P + Q，求 R</a></li><li><a href="#10、乘法測試" title="10、乘法測試">10、乘法測試</a></li><li><a href="#11、數位簽章及驗章" title="11、數位簽章及驗章">11、數位簽章及驗章</a></li><li><a href="#12、Ephemeral-Key-k-的重要性" title="12、Ephemeral Key k 的重要性">12、Ephemeral Key k 的重要性</a></li><li><a href="#13、結語" title="13、結語">13、結語</a></li><li><a href="#14、參考資料" title="14、參考資料">14、參考資料</a></li></ul></li></ul></div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
