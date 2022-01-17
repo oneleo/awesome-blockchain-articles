@@ -579,5 +579,36 @@ describe("DEX", function () {
 - 使用 Ethers.js 可以較直覺的與不同智能合約來互動，而不需要像 Wwb3.js 一樣有繁瑣的帳號解鎖動作，以加快開發效能
 
 ## 7、本文架構
+  Architecture of this article
 
 ![](./images/hardhat-037_hardhat.png)
+
+## 8、參考文獻
+  References
+
+- Hardhat
+
+  1. [Hardhat](https://hardhat.org/) 官網
+  2. 理想區塊鏈學院（Youtube）- [智能合約教程](https://www.youtube.com/playlist?list=PLfdytmZZ4Yl3hTfeROY-ptgbdcXg9Pybl)頻道
+  3. fangjun（DEV.to）- [A Concise Hardhat Tutorial](https://dev.to/yakult/a-concise-hardhat-tutorial-part-1-7eo) 文章
+
+
+- Ethers.js
+
+  1. [Ethers.js](https://github.com/ethers-io/ethers.js/) 官網
+  2. ALu（iT 邦幫忙）- [Day 17【ethers.js】ETHER. ETHER EVERYWHERE.](https://ithelp.ithome.com.tw/articles/10266109) 文章
+
+- Smart Contract、DeFi
+
+  1. [OpenZeppelin](https://openzeppelin.com/) 官網
+  2. maAPPsDEV（Github）- [dex-attack](https://github.com/maAPPsDEV/dex-attack) Repository
+  3. Max 的區塊鏈空間（Youtube）- [流動性挖礦最強攻略](https://youtu.be/GWMoPlPC_Eo)影片
+  4. 鏈求君（Youtube）- [2021 年頂級區塊鏈開發框架精選](https://youtu.be/I-cs5D89OIU)影片
+
+- Wallet、Network
+
+  1. [MetaMask](https://metamask.io/) 官網
+  2. [Ganache](https://trufflesuite.com/ganache/) 官網
+  3. gsthina.me（Medium）- [How to ConnectMetaMask to your Web Apps using Truffle & Ganache](https://coinsbench.com/connect-to-metamask-from-new-or-existing-web-application-with-truffle-and-ganache-f48aa763c0ac) 文章
+
+
