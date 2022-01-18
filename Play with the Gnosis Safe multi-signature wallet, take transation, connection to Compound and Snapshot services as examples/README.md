@@ -126,3 +126,68 @@
 
 ![](./images/safe-015_faucets.png)
 
+### 取得免費的 Rinkeby Testnet 測試網路用 NFT 非同質化代幣
+
+- 因為後面會使用 Gnosis Safe 來演練多簽狀態下轉送 NFT，所以先取得用於 Rinkeby 測試網用的 NFT
+
+- 請至 Scrappy Squirrels 團隊提供的 [Rinkeby Squirrels](https://rsq-frontend.vercel.app/) 網站，只需讓 Account 1 取得測試網 NFT
+
+- 請點選 MetaMask 右上角的【帳戶圖示】→ 點選並切換至【Account 1】→ 點選【Connect to  Wallet】→ 確認已【勾選】「Account 1」→【下一頁】→ 點選【連線】
+
+![](./images/safe-016_nft.png)
+
+- 再點選【Mint a Rinkeby Squirrel NFT】鈕開始鑄造 → 鑄造 Squirrel NFT 最多需要約 0.01024（會因實際上執行的運算量而減少），點選【確認】開始支付，等待一陣子可以點選 MetaMask 的【交易紀錄】已完成 NFT 鑄造
+
+![](./images/safe-017_nft.png)
+
+- 接下來即可以至 [OpenSea on Testnets](https://testnets.opensea.io/account) 上看到自己已完成鑄造的測試網 NFT
+
+- 請點選連線【MetaMask】→【打勾】Account →【下一頁】→【連線】，即可看到自己在 Rinkeby 測試網上鑄造出的 NFT 了！
+
+![](./images/safe-018_nft.png)
+
+## 開始至 Gnosis Safe 建置一個多簽錢包
+  Start to Gnosis Safe Create a Multisig Wallet
+
+- 本處將使用 MetaMask 的「Account 2」、「Account 3」、「Account 4」三個帳戶來建置一個多簽錢包，並且限制其中 2 個帳戶允許轉帳時將交易送出
+
+- 請至「[Gnosis Safe](https://gnosis-safe.io/)」官網，在建立多簽錢包前，先點選切換至 MetaMask 上的【Account 2】→ 再點選網站右上角【Open app】鈕
+
+![](./images/safe-019_safe.png)
+
+- 首先點選 APP 網站右上角的【網路圖示】→ 點選切換至【Rinkeby】網路 →點選【+ Create new Safe】鈕
+
+![](./images/safe-020_safe.png)
+
+- 請點選【Connect】→ 點選【Metamask】→ 確定【勾選】「Account 2」→【下一頁】→【連線】
+
+    - 注意：這邊可以看到，若想提升安全性至極致，是可以連結使用像是 Ledger、Trezor 等硬體錢包來建立多簽錢包的
+
+![](./images/safe-021_safe.png)
+
+- 請點選【Continue】→ 在「Safe name」中輸入名稱【Safe Test】（可自由取名）→【Continue】→ 在「Owner Name」中輸入【Account 2】→ 點選【+ Add another owner】以增加此多簽錢包的其他管理者
+
+![](./images/safe-022_safe.png)
+
+- 將「MetaMask」內的「Account 3」地址【複製】到 Safe Test 多簽錢包第二格，並將「Owner Name」取名為【Account 3】→ 將「Account 4」地址【複製】到 Safe Test 多簽錢包第三格，並將「Owner Name」取名為【Account 4】→ 點選「【2】out of 3 owner(s)」將同意數量閾值設置在 2 位管理者 → 確認 MetaMask 已切換回【Account 2】→ 點選【Continue】繼續
+
+![](./images/safe-023_safe.png)
+
+- 確認資訊無誤後，即可點選【Create】進行 Safe Test 多簽錢包的建置 → 點選【確認】→ 點選【Get started】→ 點選【Continue】開始使用
+
+    - 注意：本處在 Rinkeby 測試網上建置出來的 Safe Test 多簽錢包（其實是一份智能合約），就只適用於 Rinkeby 測試網上使用，若是將其他網路，如：Mainnet 主網上的資產傳送至此 Safe Test 多簽錢包內，將直接遺失（因為 Mainnet 主網上並沒有此份智能合約），實際上操作時需非常當心所在的網路位置！
+
+![](./images/safe-024_safe.png)
+
+- 若對 Gnosis Safe 多簽錢包感興趣，在建置自己的 Gnosis Safe 多簽錢包其實是呼叫 Gnosis Safe Proxy 智能合約（在 Rinkeby 網上的 Gnosis Safe Proxy 位置在：[0xa6b71e26c5e0845f74c812102ca7114b6a896ab2](https://rinkeby.etherscan.io/address/0xa6b71e26c5e0845f74c812102ca7114b6a896ab2)（每一個在 Rinkeby 測網上都一樣））來建置「多簽錢包合約」（執行「createProxyWithNonce(_singleton, initializer, saltNonceWithCallback);」此 Write 函數來產生，本處多簽錢包合約位置在：[0xf425aAcc34D53295e56e5A872cD77F5ce8D0ecc9](https://rinkeby.etherscan.io/address/0xf425aAcc34D53295e56e5A872cD77F5ce8D0ecc9)（每一個人的位置均不會相同））
+
+![](./images/safe-025_proxy.png)
+
+- 以 Proxy 智能合約部署的「[Proxy 合約設計模式](https://blog.openzeppelin.com/proxy-patterns/)」可以降低部署程式碼的計算成本（Gas 手續費），將合約拆開為 Storage（Proxy 合約）及 Logic（錢包合約）兩大部份，同時也降低了程式碼的重覆次數（因為 Logic 合約程式碼大家都是相同的
+
+![](./images/safe-026_proxy.png)
+
+## 將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包
+  Transfer "Account 1" assets and NFT to "Safe Test" multi-signature wallet
+
+- 
