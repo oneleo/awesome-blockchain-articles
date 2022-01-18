@@ -84,6 +84,45 @@
 
 ![](./images/safe-008_metamask.png)
 
-### 透過 BIP-39 協定，使用上一步的助憶詞產生多個 account 錢包
+### 透過 BIP-39 協定，使用上一步的助憶詞產生多個 account 錢包，以模擬多簽行為
 
-- 比特幣 BIP-39 協定允許使用者透過調整 HD Wallet 的 Path Tree，用同一組助憶詞來產生多組 account 錢包，詳情可參考另一篇文章：「[詳解 HD Wallet、BIP-0032、BIP-0039、BIP-0043 及 BIP-0044](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Explain%20the%20HD%20Wallet%E3%80%81BIP-0032%E3%80%81BIP-0039%E3%80%81BIP-0043%20%26%20BIP-0044%20in%20detail)」
+- 比特幣 BIP-39 協定允許使用者透過調整 HD Wallet 的 Derivation Path，用同一組助憶詞來產生多組 Account 錢包，詳情可參考另一篇文章：「[詳解 HD Wallet、BIP-0032、BIP-0039、BIP-0043 及 BIP-0044](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Explain%20the%20HD%20Wallet%E3%80%81BIP-0032%E3%80%81BIP-0039%E3%80%81BIP-0043%20%26%20BIP-0044%20in%20detail)」
+
+- 將上一步所複製的助憶詞，貼在開源 [iancoleman/bip39](https://iancoleman.io/bip39/) 專案的「BIP39 Mnemonic」【欄位】→ 並將「Coin」改為【ETH - Ethereum】區塊鏈
+
+    - 注意：實務上建議至 [iancoleman/bip39 Github](https://github.com/iancoleman/bip39/releases) 下載單機版「bip39-standalone.html」網頁，使用起來更為安全
+
+![](./images/safe-009_bip39.png)
+
+- 同樣在 iancoleman/bip39 頁面，將卷軸捲至下方的「Derived Addresses」區域，可以看到「m/44'/60'/0'/0/0」所顯示的 Address 地址要和 Metamask 的地址一致（右方為產生的子私鑰）
+
+- 接下來我們要將「m/44'/60'/0'/0/1」到「m/44'/60'/0'/0/4」右方的子私鑰，依序輸入至 MetaMask 裡，以產生多組可供多簽的 Account 帳戶
+
+![](./images/safe-010_bip39.png)
+
+- 請點選 Metamask 右上角的【帳戶圖示】→ 點選【匯入帳戶】→ 將上一個步驟複製的其中一組子私鑰貼在「請貼上您的私鑰字串」【欄位】中 → 點選【匯入】，此時應可看到 MetaMask 多出了第 2 組帳戶
+
+![](./images/safe-011_metamask.png)
+
+- 請按照上述方法，依序將「m/44'/60'/0'/0/1」到「m/44'/60'/0'/0/4」右方的子私鑰輸入到 MetaMask 中，最終會在 MetaMask 中看到總共 5 組帳戶（Account 1 至 Account 5）可供使用
+
+![](./images/safe-012_metamask.png)
+
+### 取得免費的 Rinkeby Testnet 測試網路用 ETH 幣
+
+- 因為後面要建立 Gnosis Safe 多簽錢包，需要與乙太網路上的智能合約溝通，所以要先取得用於 Rinkeby 測試網用的 ETH 幣，才可以透過支付 Gas 手續費和智能合約互動
+
+- 請至 Chain Link 提供的 [Rinkeby Faucets](https://faucets.chain.link/rinkeby) 水龍頭網站依序將 Account 1 至 Account 5 輸入以取得測試網乙太幣
+
+- 請在「Network」點選【Ethereum Rinkeby】→【複製】MetaMask 上 Account 1 的地址 → 貼在「Testnet account address」【欄位】→【勾選】「0.1 test ETH」→【勾選】「我不是機器人」→完成 Google 免費勞工【驗證】→ 點選【Send request】
+
+![](./images/safe-013_faucets.png)
+
+- 看到「Request complete」訊息後 → 即可【Close】關閉視窗 → 在 MetaMask 也看到 Account 1 獲得 0.1 顆測試用 ETH 幣
+
+![](./images/safe-014_faucets.png)
+
+- 請依序將 Account 2 至 Account 5 輸入至 [Rinkeby Faucets](https://faucets.chain.link/rinkeby) 以各取得 0.1 顆 ETH 測試幣
+
+![](./images/safe-015_faucets.png)
+
