@@ -211,7 +211,49 @@
 ## 6、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 及 NFT 轉出至「Account 5」
   Coordinated the 3 managers of the "Safe Test" multi-signature wallet, and transferred 0.01 ETH and NFT to "Account 5"
 
-- 本處情境為「Account 2」同意轉帳、「Account 3」同意轉帳，以達成轉帳協議
+- 本處情境為「Account 2」同意轉帳、「Account 3」同意轉帳，以達成轉帳協議，將其中的 0.01 ETH 及 NFT 轉出至「Account 5」
+
+- 請點選 MetaMask 右上角【帳戶符號】→ 點選下方【Account 5】→ 再點選上方【Account 5】以複製 Account 5 地址
+
+![](./images/safe-030_safe.png)
+
+- 請點選 MetaMask 右上角【帳戶符號】→ 點選下方【Account 2】切換至 Account 2 → 再點選 Safe Test 錢包左側【New transaction】→【Send funds】
+
+![](./images/safe-031_safe.png)
+
+- 請將剛才複製的 Account 5 地址【貼上】在「Recipient」欄位 → 點選【Ether】代幣 → 數量是【0.01】→ 點選【Review】→【簽署】，可以看到 Safe Test 錢包正在等待其他管理者同意或拒絕
+
+![](./images/safe-032_safe.png)
+
+- 請點選 MetaMask 右上角【帳戶符號】→ 點選下方【Account 3】切換至 Account 3 → 再點選【連線】將 Account 3 連線至 Safe Test 錢包 → 確認上方顯示的是「Account 3」的地址後，請點選下方【Confirm】鈕 →【勾選】「Execute transaction」由 Account 3 負責支付本次交易的手續費 →【Submit】→ 點選【確認】後，等待一會兒即可看到交易完成
+
+![](./images/safe-033_safe.png)
+
+![](./images/safe-034_safe.png)
+
+- 此時即可看到 Account 5 的餘額從原先的 0.1 ETH 增加為 0.11 ETH，完成這次的 Safe Test 的 ETH 轉帳
+
+![](./images/safe-035_safe.png)
+
+- 同樣的，接著請點選 MetaMask 右上角【帳戶符號】→ 點選下方【Account 2】切換回【Account 2】→ 再點選 Safe Test 錢包左側【New transaction】→【Send collectible】
+
+![](./images/safe-036_safe.png)
+
+- 請將剛才複製的 Account 5 地址【貼上】在「Recipient」欄位 → 點選【Rinkeby Squirrels】發行商 →【#205 NFT】→ 點選【Review】→【Submit】→【簽署】，可以看到 Safe Test 錢包正在等待其他管理者同意或拒絕
+
+- 若是不小心將瀏覽器關閉，可以從 Safe Test 錢包左側的【TRANSACTIONS】→ 右側的【QUEUE】中看到正在等候的交易
+
+![](./images/safe-037_safe.png)
+
+- 請點選 MetaMask 右上角【帳戶符號】→ 點選下方【Account 3】切換至 Account 3 → 確認上方顯示的是「Account 3」的地址後，請點選下方【Confirm】鈕 →【勾選】「Execute transaction」由 Account 3 負責支付本次交易的手續費 →【Submit】
+
+![](./images/safe-038_safe.png)
+
+- 請點選【確認】後，等待一會兒即可看到交易完成 → 此時可以從【TRANSACTIONS】→ 右側的【HISTORY】中看到已完成的交易
+
+- 這時就可以用 Account 5 登入到 [OpenSea on Testnets](https://testnets.opensea.io/account) 網站看到已順利取得 NFT 了！
+
+![](./images/safe-039_safe.png)
 
 ## 7、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 質押至 Compound 服務
   Coordinated the 3 managers of the "Safe Test" multi-signature wallet to pledge 0.01 ETH to the Compound service
@@ -230,9 +272,31 @@
 
   - 借款者抵押如 USDT 來立刻取得 ETH 放款，不需等待且借貸利率低
 
-![](./images/)
+![](./images/safe-040_compound.png)
 
-###
+### 將 Safe Test 連接至內建的 Compound APPs 並進行 0.01 ETH 的質押
+
+- 請點選 MetaMask 右上角【帳戶符號】→ 點選下方【Account 2】切換至 Account 2 → 確認上方顯示的是「Account 2」的地址後，請點選左側【APPS】→ 點選右側的【Compound】
+
+![](./images/safe-041_compound.png)
+
+- 點選【ETH】幣 → 點選【SUPPLY】質押 → 設置【0.01】顆 →【Supply】→【Submit】→【簽署】
+
+![](./images/safe-042_compound.png)
+
+- 接著我們要讓 Account 3 拒絕，請點選 Safe Test 左側【TRANSACTION】→ 點選右側【QUEUE】→ 點選【Compound mine】→ 因為此時還是 Account 2 帳戶，所以要點選 MetaMask 右上角【帳戶圖示】→【Account 3】切換到 Account 3 → 點選【Reject】拒絕 →【Reject transaction】→【簽署】即完成 Account 3 的拒絕動作
+
+![](./images/safe-043_compound.png)
+
+- 緊接著要讓 Account 4 允許，請點選 MetaMask 右上角【帳戶圖示】→【Account 4】→【連接】以切換到 Account 4 → 因為上一步停留在「是否要拒絕此交易」畫面，所以要重新點選 Safe Test 左側【TRANSACTION】→ 點選右側【QUEUE】→ 點選【Compound mine】（不是「ON-CHAIN REJECTION」）→ 點選【Confirm】→ 點選【Execute transaction】由 Account 4 來支付手續費 →【Submit】→【確認】
+
+![](./images/safe-044_compound.png)
+
+![](./images/safe-045_compound.png)
+
+- 因為 3 個管理者中有 2 位允許即可接受本次質押，可以在【TRANSACTION】→【HISTORY】看到本次質押已允許，並且可以從【ASSETS】→【Coins】中看到從 Compound 返回的 cETH 代幣
+
+![](./images/safe-046_compound.png)
 
 ## 8、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 Snapshot 服務
   Connect the "Safe Test" multi-signature wallet to the Snapshot service through the WalletConnect open source protocol
