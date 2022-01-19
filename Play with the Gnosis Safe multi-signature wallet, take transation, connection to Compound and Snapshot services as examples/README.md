@@ -309,9 +309,21 @@
 
   - Snapshot 是一個用於「提案」和「投票」的鏈下無手續費（Gas）的治理工具，透過持有代幣的社群或個人，可簡化治理流程及提升參與度。Snapshot 會透過所有參與者錢包位址持有的代幣數量，對不同提案進行加權投票
 
-![](./images/)
+![](./images/safe-047_snapshot.png)
 
-### 
+### 透過 WalletConnect 開源協議，將「Safe Test」錢包連接至 Snapshot 服務
+
+- 因為 Gnosis Safe 沒有內建 Snapshot APP，所以要使用 WalletConnect 開源協議來連線，請先到 [Snapshot](https://snapshot.org/) 官網 → 點選【連接錢包】→ 點選【WalletConnect】→ 點選【複製到剪貼板】
+
+![](./images/safe-048_snapshot.png)
+
+- 回到 Safe Test 錢包，請先點選 MetaMask 右上角【帳戶圖示】→ 點選【Account 2】切換到 Account 2 → 點選【APPS】→【WalletConnect】→ 在「Wallet Connect」下方【貼上】剛才複製的連接資訊，即可看到 Snapshot APP 已完成連線
+
+![](./images/safe-049_snapshot.png)
+
+- 再次來到 [Snapshot](https://snapshot.org/) 網站，可以看到我們的 Safe Test 錢包已完成和 Snapshot DAPP 連線，即可進行後續的「提案」與「投票」了！
+
+![](./images/safe-050_snapshot.png)
 
 ## 9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph
   Connect the "Safe Test" multi-signature wallet to The Graph service through the WalletConnect open source protocol, and coordinate the 3 managers of the "Safe Test" multi-signature wallet to use 0.01 ETH as a Curator to Signal one of the Subgraphs
@@ -328,15 +340,31 @@
   - Delegator：質押手中的 GRT 給 Indexer，並收取利息作為收入
   - Consumer：支付 GRT 進行指定 Subgraph 的查詢
 
-![](./images/graph-001_subgraph.png)
+![](./images/safe-051_graph.png)
 
 ### 取得免費的 The Graph Testnet 測試網路用 GRT 代幣
 
-- 為免費取得在 Rinkeby 測試網上的 GRT 代幣，需先加入 [The Graph Discord](https://discord.gg/vtvv7FP) 
+- 為免費取得在 Rinkeby 測試網上的 GRT 代幣，需先點選加入 [The Graph Discord](https://discord.gg/vtvv7FP) 
+
+- 請輸入 Discord【使用者名稱】→【繼續】→【勾選】我不是機器人 → 輸入出生【年】【月】【日】→【電子郵件】（可使用[臨時信箱](https://temp-mail.org/)服務）、【密碼】→【下一步】→ 到信箱點選【驗證電子郵件】
+
+![](./images/safe-052_graph.png)
+
+- 進到 The Graph Discord 後，點選下方【完成】→【勾選】「我已詳閱並同意規則」→【提交】→ 點選左側【verify】頻道 → 送出【/verify】訊息 → 此時會有驗證機器人私訊，對他送出顯示的【驗證碼】以完成驗證 → 點選左側【roles】頻道 → 按下【T】鈕以成為測試成員 → 點選左側【testnet-faucet】頻道 → 輸入【!grt <Safe Test 錢包地址>】
+
+![](./images/safe-053_graph.png)
+
+- 可以看到已在 Safe Test 錢包內收到 100000 顆 GRT 測試幣了
+
+![](./images/safe-054_graph.png)
+
+### 透過 WalletConnect 開源協議，將「Safe Test」錢包連接至 The Graph 服務
 
 - 
 
-###
+### 協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph
+
+-
 
 ## 10、總結
   Conclusion
