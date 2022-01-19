@@ -169,25 +169,60 @@
 
 ![](./images/safe-022_safe.png)
 
-- 將「MetaMask」內的「Account 3」地址【複製】到 Safe Test 多簽錢包第二格，並將「Owner Name」取名為【Account 3】→ 將「Account 4」地址【複製】到 Safe Test 多簽錢包第三格，並將「Owner Name」取名為【Account 4】→ 點選「【2】out of 3 owner(s)」將同意數量閾值設置在 2 位管理者 → 確認 MetaMask 已切換回【Account 2】→ 點選【Continue】繼續
+- 將「MetaMask」內的「Account 3」地址【複製】到 Safe Test 錢包第二格，並將「Owner Name」取名為【Account 3】→ 將「Account 4」地址【複製】到 Safe Test 錢包第三格，並將「Owner Name」取名為【Account 4】→ 點選「【2】out of 3 owner(s)」將同意數量閾值設置在 2 位管理者 → 確認 MetaMask 已切換回【Account 2】→ 點選【Continue】繼續
 
 ![](./images/safe-023_safe.png)
 
-- 確認資訊無誤後，即可點選【Create】進行 Safe Test 多簽錢包的建置 → 點選【確認】→ 點選【Get started】→ 點選【Continue】開始使用
+- 確認資訊無誤後，即可點選【Create】進行 Safe Test 錢包的建置 → 點選【確認】→ 點選【Get started】→ 點選【Continue】開始使用
 
-    - 注意：本處在 Rinkeby 測試網上建置出來的 Safe Test 多簽錢包（其實是一份智能合約），就只適用於 Rinkeby 測試網上使用，若是將其他網路，如：Mainnet 主網上的資產傳送至此 Safe Test 多簽錢包內，將直接遺失（因為 Mainnet 主網上並沒有此份智能合約），實際上操作時需非常當心所在的網路位置！
+    - 注意：本處在 Rinkeby 測試網上建置出來的 Safe Test 錢包（其實是一份智能合約），就只適用於 Rinkeby 測試網上使用，若是將其他網路，如：Mainnet 主網上的資產傳送至此 Safe Test 錢包內，將直接遺失（因為 Mainnet 主網上並沒有此份智能合約），實際上操作時需非常當心所在的網路位置！
 
 ![](./images/safe-024_safe.png)
 
+- 因為在 Rinkeby 網上使用 Gnosis Safe 錢包地址前方會帶有「rin:」前綴字，為方便後續操作，我們可以設定不要複製到「rin:」前綴字，請點選左側【SETTINGS】→【Appearance】→【取消勾選】「Copy addresses with chain prefix.」
+
+![](./images/safe-025_safe.png)
+
 - 若對 Gnosis Safe 多簽錢包感興趣，在建置自己的 Gnosis Safe 多簽錢包其實是呼叫 Gnosis Safe Proxy 智能合約（在 Rinkeby 網上的 Gnosis Safe Proxy 位置在：[0xa6b71e26c5e0845f74c812102ca7114b6a896ab2](https://rinkeby.etherscan.io/address/0xa6b71e26c5e0845f74c812102ca7114b6a896ab2)（每一個在 Rinkeby 測網上都一樣））來建置「多簽錢包合約」（執行「createProxyWithNonce(_singleton, initializer, saltNonceWithCallback);」此 Write 函數來產生，本處多簽錢包合約位置在：[0xf425aAcc34D53295e56e5A872cD77F5ce8D0ecc9](https://rinkeby.etherscan.io/address/0xf425aAcc34D53295e56e5A872cD77F5ce8D0ecc9)（每一個人的位置均不會相同））
 
-![](./images/safe-025_proxy.png)
+![](./images/safe-026_proxy.png)
 
 - 以 Proxy 智能合約部署的「[Proxy 合約設計模式](https://blog.openzeppelin.com/proxy-patterns/)」可以降低部署程式碼的計算成本（Gas 手續費），將合約拆開為 Storage（Proxy 合約）及 Logic（錢包合約）兩大部份，同時也降低了程式碼的重覆次數（因為 Logic 合約程式碼大家都是相同的
 
-![](./images/safe-026_proxy.png)
+![](./images/safe-027_proxy.png)
 
 ## 將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包
   Transfer "Account 1" assets and NFT to "Safe Test" multi-signature wallet
 
-- 
+- 接著為實現將「Safe Test 錢包」轉帳至「Account 5」，首先將「Account 1」的測試用 ETH 及 NFT 轉移至「Safe Test 錢包」內
+
+- 請【複製】Safe Test 錢包地址 → 點選 MetaMask 右上角【帳戶圖示】確認現在為【Account 1】→ 點選【發送】鈕 → 貼上【Safe Test 錢包地址】→ 在「數量」輸入【0.05】→【下一頁】→【確認】
+
+- 待交易完成後，即可在 Safe Test 錢包點選【ASSETS】→【Coins】看到「0.05 測試 ETH」資產已入帳
+
+![](./images/safe-028_safe.png)
+
+- 再來請至 [OpenSea on Testnets](https://testnets.opensea.io/account) 點選測試網 NFT 左下角的【…】符號 →【Transfer】→ 點選下方【Transfer】→ 輸入【Safe Test 錢包地址】→【確認】
+
+- 待交易完成後，即可在 Safe Test 錢包點選【ASSETS】→【Collectibles】看到「測試 NFT」資產已轉入
+
+![](./images/safe-029_safe.png)
+
+
+
+
+
+
+
+### 取得免費的 The Graph Testnet 測試網路用 GRT 代幣
+
+- The Graph 是區塊鏈上的 GraphQL API 搜尋引擎，主要由 5 種角色組成
+  - Developer：DAPPs 項目方，為讓自家的 DAPPs 被推廣及被搜尋，會在 The Graph 上建立 Subgraph，藉此紀錄 DAPPs 資料在以太坊上的位置、及資料的儲存格式
+  - Indexer：索引節點維護者，負責提供索引的建立與查詢，並收取查詢手續費作為收入
+  - Curator：評估 Developer 建置的 Subgraph 是否值得採用（透過 Signal），告訴 Indexer 可以索引這些 Subgraph，且 Curator 可取得部份查詢手續費作為正確標記 Subgraph 的獎勵
+  - Delegator：質押手中的 GRT 給 Indexer，並收取利息作為收入
+  - Consumer：支付 GRT 進行指定 Subgraph 的查詢
+
+![](./images/graph-001_subgraph.png)
+
+- 為免費取得在 Rinkeby 測試網上的 GRT 代幣，需先加入 [The Graph Discord](https://discord.gg/vtvv7FP) 
