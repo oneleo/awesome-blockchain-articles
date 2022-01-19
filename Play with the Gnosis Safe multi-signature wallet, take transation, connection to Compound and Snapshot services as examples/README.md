@@ -1,24 +1,24 @@
-# 玩轉 Gnosis Safe 多簽錢包，以轉帳、連接 Compound 及 Snapshot 服務為例
-  Play with the Gnosis Safe multi-signature wallet, take transation, connection to Compound and Snapshot services as examples
-
+# 玩轉 Gnosis Safe 多簽錢包，以轉帳、連接 Compound、Snapshot 及 The Graph 服務為例
+  Play with the Gnosis Safe multi-signature wallet, take transation, connection to Compound, Snapshot and The Graph services as examples
 
 <details>
   <summary>請展開此以查看本文目錄：Contents</summary>
- </details>
-    - [1、緣由]()
-    - [2、簡介 Gnosis Safe 多簽錢包可應用的場景]()
-            1、創建
-        2、轉帳
-        3、Compond
-        4、snapshot
-        5、合約說明
-    - [前置作業（Bip39 * 5、Metamask、tETH * 4、]()
-    - [創建一個 Gnosis Safe（Rinkeby Testnet）地址]()
-    - [將 tETH、tNFT 轉]()
-    - []()
 
+  - [1、緣由]()
+  - [2、簡介 Gnosis Safe 多簽錢包可應用的場景]()
+  - [3、前置作業]()
+  - [4、開始至 Gnosis Safe 建置一個多簽錢包]()
+  - [5、將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包]()
+  - [6、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 及 NFT 轉出至「Account 5」]()
+  - [7、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 質押至 Compound 服務]()
+  - [8、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 Snapshot 服務]()
+  - [9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph]()
+  - [10、總結]()
+  - [11、本文架構]()
+  - [12、參考文獻]()
+</details>
 
-## 緣由
+## 1、緣由
   The reason
 
 - 我們在 Ethereum 上使用錢包 Wallet 進行交易、與智能合約互動時，最怕遇到助憶詞（或由助憶詞產生的子私鑰）外洩或遺失，因為助憶詞代表著您對此區塊鏈上的資產存取權，外洩或遺失意謂著您將損失、失去您在區塊鏈上對映的所有資產！
@@ -34,7 +34,7 @@
 
 - 自 2017 年 Gnosis 創立以來，不斷開發基於區塊鏈上的資產管理解決方案，Gnosis 開發的多簽錢包 Gnosis Safe 是在 Ethereum 乙太坊上管理數位資產最為信賴的平臺，有許多 DAO 去中心化自治組織用來管理服務。
 
-- Gnosis Safe 允許定義多簽錢包（實際上是智能合約錢包）的管理者列表，以及設置交易時需要的管理者確認閾值（例如：3 人中只需 2 人確認、5 人中只需 3 人確認），假設這筆轉帳收集了超過閾值數量的簽署確認，即可執行交易。
+- Gnosis Safe 允許定義多簽錢包（實際上是實現 EIP-712 和 EIP-1271 協定的智能合約錢包）的管理者列表，以及設置交易時需要的管理者確認閾值（例如：3 人中只需 2 人確認、5 人中只需 3 人確認），假設這筆轉帳收集了超過閾值數量的簽署確認，即可執行交易。
 
 - 公司或團隊可更安全地將資金儲存在 Gnosis Safe 多簽錢包內，因為要求指定數量的管理者接受才能轉移資金。所以沒有一個管理者可以捲款跑路
 
@@ -48,7 +48,7 @@
 
 ![](./images/safe-002_network.png)
 
-## 前置作業
+## 3、前置作業
 
 ### 安裝 Metamask 錢包，並創建在 Rinkeby Testnet 乙太坊測試網使用的錢包
 
@@ -90,7 +90,7 @@
 
 - 將上一步所複製的助憶詞，貼在開源 [iancoleman/bip39](https://iancoleman.io/bip39/) 專案的「BIP39 Mnemonic」【欄位】→ 並將「Coin」改為【ETH - Ethereum】區塊鏈
 
-    - 注意：實務上建議至 [iancoleman/bip39 Github](https://github.com/iancoleman/bip39/releases) 下載單機版「bip39-standalone.html」網頁，使用起來更為安全
+  - 注意：實務上建議至 [iancoleman/bip39 Github](https://github.com/iancoleman/bip39/releases) 下載單機版「bip39-standalone.html」網頁，使用起來更為安全
 
 ![](./images/safe-009_bip39.png)
 
@@ -146,7 +146,7 @@
 
 ![](./images/safe-018_nft.png)
 
-## 開始至 Gnosis Safe 建置一個多簽錢包
+## 4、開始至 Gnosis Safe 建置一個多簽錢包
   Start to Gnosis Safe Create a Multisig Wallet
 
 - 本處將使用 MetaMask 的「Account 2」、「Account 3」、「Account 4」三個帳戶來建置一個多簽錢包，並且限制其中 2 個帳戶允許轉帳時將交易送出
@@ -161,7 +161,7 @@
 
 - 請點選【Connect】→ 點選【Metamask】→ 確定【勾選】「Account 2」→【下一頁】→【連線】
 
-    - 注意：這邊可以看到，若想提升安全性至極致，是可以連結使用像是 Ledger、Trezor 等硬體錢包來建立多簽錢包的
+  - 注意：這邊可以看到，若想提升安全性至極致，是可以連結使用像是 Ledger、Trezor 等硬體錢包來建立多簽錢包的
 
 ![](./images/safe-021_safe.png)
 
@@ -175,7 +175,7 @@
 
 - 確認資訊無誤後，即可點選【Create】進行 Safe Test 錢包的建置 → 點選【確認】→ 點選【Get started】→ 點選【Continue】開始使用
 
-    - 注意：本處在 Rinkeby 測試網上建置出來的 Safe Test 錢包（其實是一份智能合約），就只適用於 Rinkeby 測試網上使用，若是將其他網路，如：Mainnet 主網上的資產傳送至此 Safe Test 錢包內，將直接遺失（因為 Mainnet 主網上並沒有此份智能合約），實際上操作時需非常當心所在的網路位置！
+  - 注意：本處在 Rinkeby 測試網上建置出來的 Safe Test 錢包（其實是一份智能合約），就只適用於 Rinkeby 測試網上使用，若是將其他網路，如：Mainnet 主網上的資產傳送至此 Safe Test 錢包內，將直接遺失（因為 Mainnet 主網上並沒有此份智能合約），實際上操作時需非常當心所在的網路位置！
 
 ![](./images/safe-024_safe.png)
 
@@ -191,7 +191,7 @@
 
 ![](./images/safe-027_proxy.png)
 
-## 將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包
+## 5、將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包
   Transfer "Account 1" assets and NFT to "Safe Test" multi-signature wallet
 
 - 接著為實現將「Safe Test 錢包」轉帳至「Account 5」，首先將「Account 1」的測試用 ETH 及 NFT 轉移至「Safe Test 錢包」內
@@ -208,15 +208,56 @@
 
 ![](./images/safe-029_safe.png)
 
+## 6、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 及 NFT 轉出至「Account 5」
+  Coordinated the 3 managers of the "Safe Test" multi-signature wallet, and transferred 0.01 ETH and NFT to "Account 5"
 
+- 本處情境為「Account 2」同意轉帳、「Account 3」同意轉帳，以達成轉帳協議
 
+## 7、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 質押至 Compound 服務
+  Coordinated the 3 managers of the "Safe Test" multi-signature wallet to pledge 0.01 ETH to the Compound service
 
+- 本處情境為「Account 2」同意質押、「Account 3」不同意、「Account 4」同意質押，以達成質押協議
 
+### 什麼是 Compound？
 
+- Compound 是去中心化金融（DeFi）上的借貸平台
 
-### 取得免費的 The Graph Testnet 測試網路用 GRT 代幣
+  - 去中心化金融 DeFi 是以智能合約取代傳統的金融服務，過去金融機構透過存款者的資金放貸給借款者，以賺取中間利息。一旦以 DeFi 取代傳統中心化金融，就能自動化處理，除了區塊鏈上每筆交易都透明公開，還可去除中介者不合理抽傭，將大多數利息回饋給存款者
+
+  - Compound 正是以智能合約進行透明公開的借貸交易，分為存款者存入密碼貨幣、放貸賺取利息，借款者抵押密碼貨幣資產以進行借貸投資。
+
+  - 存款者存入 ETH 可取得 cETH 代幣，存款者可使用 cETH 贖回含利息的 ETH
+
+  - 借款者抵押如 USDT 來立刻取得 ETH 放款，不需等待且借貸利率低
+
+![](./images/)
+
+###
+
+## 8、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 Snapshot 服務
+  Connect the "Safe Test" multi-signature wallet to the Snapshot service through the WalletConnect open source protocol
+
+### 什麼是 Snapshot？
+
+- Snapshot 是去中心化治理組織 DAO 最喜愛用的投票平台 
+
+  - 去中心化治理組織 DAO（Decentralized Autonomous Organization）的決策均由代幣持有者共同投票決定，不會受到中心化政府或組織控制。DAO 從營運治理、日常運作及付款時程等，皆由智能合約自動執行，除了達到民主、公平的目標，還可簡化程序上的流程
+
+  - Snapshot 是一個用於「提案」和「投票」的鏈下無手續費（Gas）的治理工具，透過持有代幣的社群或個人，可簡化治理流程及提升參與度。Snapshot 會透過所有參與者錢包位址持有的代幣數量，對不同提案進行加權投票
+
+![](./images/)
+
+### 
+
+## 9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph
+  Connect the "Safe Test" multi-signature wallet to The Graph service through the WalletConnect open source protocol, and coordinate the 3 managers of the "Safe Test" multi-signature wallet to use 0.01 ETH as a Curator to Signal one of the Subgraphs
+
+- 本處情境為「Account 2」同意 Signal、「Account 3」不同意、「Account 4」不同意，以取消成為 Curator 的支出
+
+### 什麼是 The Graph？
 
 - The Graph 是區塊鏈上的 GraphQL API 搜尋引擎，主要由 5 種角色組成
+
   - Developer：DAPPs 項目方，為讓自家的 DAPPs 被推廣及被搜尋，會在 The Graph 上建立 Subgraph，藉此紀錄 DAPPs 資料在以太坊上的位置、及資料的儲存格式
   - Indexer：索引節點維護者，負責提供索引的建立與查詢，並收取查詢手續費作為收入
   - Curator：評估 Developer 建置的 Subgraph 是否值得採用（透過 Signal），告訴 Indexer 可以索引這些 Subgraph，且 Curator 可取得部份查詢手續費作為正確標記 Subgraph 的獎勵
@@ -225,4 +266,55 @@
 
 ![](./images/graph-001_subgraph.png)
 
+### 取得免費的 The Graph Testnet 測試網路用 GRT 代幣
+
 - 為免費取得在 Rinkeby 測試網上的 GRT 代幣，需先加入 [The Graph Discord](https://discord.gg/vtvv7FP) 
+
+- 
+
+###
+
+## 10、總結
+  Conclusion
+  
+- Gnosis Safe 為 DeFi 領域提供更為安全的錢包選擇
+- 您甚至可搭配 Ledger、Trezor 等硬體錢包成為 Gnosis Safe 的管理者之一
+- 因為支援 WalletConnect 開源協議，所以可支援各式主流的 DAPPs 服務
+- 不論是團體、還是個人使用都有可提升安全性的應用情境
+- 透過 Gnosis Safe 可更利於維護公司提供的 DAPPs 服務，不易有管理者監者自盜的情形發生
+
+## 11、本文架構
+  Architecture of this article
+
+## 12、參考文獻
+  References
+
+- Gnosis Safe
+  - [Gnosis Safe](https://gnosis-safe.io/) 官網
+  - 0xAA（People DAO）- [DAO 工具 #1: Gnosis Safe 多簽錢包](https://mirror.xyz/people-dao.eth/nFCBXda8B5ZxQVqSbbDOn2frFDpTxNVtdqVBXGIjj0s)
+  - 以太坊愛好者（鏈報）- [以太坊上的數字簽名](https://www.chaindaily.cc/posts/a2d53ecf8b06c984426669fa06e9fe40)
+  - 深入淺出區塊鏈（gushiciku）- [Genosis Safe](https://www.gushiciku.cn/pl/gwyc/zh-tw)
+  - 深入淺出區塊鏈（gushiciku）- [手動構造 Gnosis 多籤交易](https://www.gushiciku.cn/pl/ageM/zh-tw)
+  - 深入淺出區塊鏈（gushiciku）- [GnosisSafe - 合約結構分析](https://www.gushiciku.cn/pl/g9c5/zh-tw)
+
+- Compound
+  - [Compound](https://compound.finance/) 官網
+  - 懶人經濟學 - [Compound 介紹：最大 DeFi 借貸平台，使用就能領 COMP 挖礦！在 Compound 享超優惠利率借貸及穩定獲利放貸！](https://earning.tw/what-is-compound/)
+
+- Snapshot
+  - [Snapshot](https://snapshot.org/) 官網
+  - Lukas Schor（Gnosis Safe）- [How to participate in a Snapshot poll](https://help.gnosis-safe.io/en/articles/4820197-how-to-participate-in-a-snapshot-poll)
+  - Joe（動區）- [Snapshot 擬 Q2 推「L2 鏈上投票框架 Snapshot X」，帶來最大的改變是？](https://www.blocktempo.com/snapshot-x-upcoming-on-chain-voting-framework/)
+  - 潘致雄（鏈新聞）- [這輪 DAO 熱潮中永不發幣的 Snapshot 為何最值得關注？](https://www.abmedia.io/what-snapshot-is-notable-in-dao-trends)
+
+- The Graph
+  - [The Graph](https://thegraph.com/) 官網
+  - Andrew（每日幣研）- [The Graph：4 種分工角色，理解區塊鏈上的Google](https://cryptowesearch.com/blog/all/grt-intro)
+
+- DAO & DeFi
+  - 維基百科 - [去中心化金融](https://zh.wikipedia.org/zh-tw/去中心化金融)
+  - 維基百科 - [分散式自治組織](https://zh.wikipedia.org/zh-tw/分布式自治组织)
+  - Taiwan Crypto - [DAO - 建立在區塊鏈上的新型組織](https://taiwancrypto.com.tw/blog/2021/12/01/dao/)
+
+- 其他
+  - [temp-mail](https://temp-mail.org/)
