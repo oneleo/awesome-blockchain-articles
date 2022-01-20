@@ -1,21 +1,21 @@
 # 玩轉 Gnosis Safe 多簽錢包，以轉帳、連接 Compound、Snapshot 及 The Graph 服務為例
-  Play with the Gnosis Safe multi-signature wallet, take transation, connection to Compound, Snapshot and The Graph services as examples
+  Play with the Gnosis Safe multi-signature wallet, take transaction, connection to Compound, Snapshot and The Graph services as examples
 
 <details>
   <summary>請展開此以查看本文目錄：Contents</summary>
 
-  - [1、緣由]()
-  - [2、簡介 Gnosis Safe 多簽錢包可應用的場景]()
-  - [3、前置作業]()
-  - [4、開始至 Gnosis Safe 建置一個多簽錢包]()
-  - [5、將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包]()
-  - [6、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 及 NFT 轉出至「Account 5」]()
-  - [7、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 質押至 Compound 服務]()
-  - [8、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 Snapshot 服務]()
-  - [9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph]()
-  - [10、總結]()
-  - [11、本文架構]()
-  - [12、參考文獻]()
+  - [1、緣由](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#1%E7%B7%A3%E7%94%B1)
+  - [2、簡介 Gnosis Safe 多簽錢包可應用的場景](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#2%E7%B0%A1%E4%BB%8B-gnosis-safe-%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85%E5%8F%AF%E6%87%89%E7%94%A8%E7%9A%84%E5%A0%B4%E6%99%AF)
+  - [3、前置作業](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#3%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD)
+  - [4、開始至 Gnosis Safe 建置一個多簽錢包](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#4%E9%96%8B%E5%A7%8B%E8%87%B3-gnosis-safe-%E5%BB%BA%E7%BD%AE%E4%B8%80%E5%80%8B%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85)
+  - [5、將「Account 1」的資產及 NFT 轉到「Safe Test」多簽錢包](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#5%E5%B0%87account-1%E7%9A%84%E8%B3%87%E7%94%A2%E5%8F%8A-nft-%E8%BD%89%E5%88%B0safe-test%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85)
+  - [6、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 及 NFT 轉出至「Account 5」](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#6%E5%8D%94%E8%AA%BFsafe-test%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85%E7%9A%84-3-%E4%BD%8D%E7%AE%A1%E7%90%86%E8%80%85%E5%B0%87%E5%85%B6%E4%B8%AD%E7%9A%84-001-eth-%E5%8F%8A-nft-%E8%BD%89%E5%87%BA%E8%87%B3account-5)
+  - [7、協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 質押至 Compound 服務](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#7%E5%8D%94%E8%AA%BFsafe-test%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85%E7%9A%84-3-%E4%BD%8D%E7%AE%A1%E7%90%86%E8%80%85%E5%B0%87%E5%85%B6%E4%B8%AD%E7%9A%84-001-eth-%E8%B3%AA%E6%8A%BC%E8%87%B3-compound-%E6%9C%8D%E5%8B%99)
+  - [8、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 Snapshot 服務](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#8%E5%B0%87safe-test%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85%E9%80%8F%E9%81%8E-walletconnect-%E9%96%8B%E6%BA%90%E5%8D%94%E8%AD%B0%E9%80%A3%E6%8E%A5%E8%87%B3-snapshot-%E6%9C%8D%E5%8B%99)
+  - [9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 100 GRT 用作 Curator 來 Signal 其中一項 Subgraph](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#9%E5%B0%87safe-test%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85%E9%80%8F%E9%81%8E-walletconnect-%E9%96%8B%E6%BA%90%E5%8D%94%E8%AD%B0%E9%80%A3%E6%8E%A5%E8%87%B3-the-graph-%E6%9C%8D%E5%8B%99%E4%B8%A6%E4%B8%94%E5%8D%94%E8%AA%BFsafe-test%E5%A4%9A%E7%B0%BD%E9%8C%A2%E5%8C%85%E7%9A%84-3-%E4%BD%8D%E7%AE%A1%E7%90%86%E8%80%85%E5%B0%87%E5%85%B6%E4%B8%AD%E7%9A%84-100-grt-%E7%94%A8%E4%BD%9C-curator-%E4%BE%86-signal-%E5%85%B6%E4%B8%AD%E4%B8%80%E9%A0%85-subgraph)
+  - [10、總結](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#10%E7%B8%BD%E7%B5%90)
+  - [11、本文架構](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#11%E6%9C%AC%E6%96%87%E6%9E%B6%E6%A7%8B)
+  - [12、參考文獻](https://github.com/oneleo/awesome-blockchain-articles/tree/main/Play%20with%20the%20Gnosis%20Safe%20multi-signature%20wallet%2C%20take%20transation%2C%20connection%20to%20Compound%20and%20Snapshot%20services%20as%20examples#12%E5%8F%83%E8%80%83%E6%96%87%E7%8D%BB)
 </details>
 
 ## 1、緣由
@@ -325,7 +325,11 @@
 
 ![](./images/safe-050_snapshot.png)
 
-## 9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph
+- 因為 Safe Test 錢包一次只能和一個 DAPP 進行 WalletConnect 連線，當完成交易後，請記得回到 Safe Test 按下【Disconnect】斷開連線
+
+![](./images/safe-051_snapshot.png)
+
+## 9、將「Safe Test」多簽錢包透過 WalletConnect 開源協議，連接至 The Graph 服務，並且協調「Safe Test」多簽錢包的 3 位管理者，將其中的 100 GRT 用作 Curator 來 Signal 其中一項 Subgraph
   Connect the "Safe Test" multi-signature wallet to The Graph service through the WalletConnect open source protocol, and coordinate the 3 managers of the "Safe Test" multi-signature wallet to use 0.01 ETH as a Curator to Signal one of the Subgraphs
 
 - 本處情境為「Account 2」同意 Signal、「Account 3」不同意、「Account 4」不同意，以取消成為 Curator 的支出
@@ -340,7 +344,7 @@
   - Delegator：質押手中的 GRT 給 Indexer，並收取利息作為收入
   - Consumer：支付 GRT 進行指定 Subgraph 的查詢
 
-![](./images/safe-051_graph.png)
+![](./images/safe-052_graph.png)
 
 ### 取得免費的 The Graph Testnet 測試網路用 GRT 代幣
 
@@ -348,23 +352,49 @@
 
 - 請輸入 Discord【使用者名稱】→【繼續】→【勾選】我不是機器人 → 輸入出生【年】【月】【日】→【電子郵件】（可使用[臨時信箱](https://temp-mail.org/)服務）、【密碼】→【下一步】→ 到信箱點選【驗證電子郵件】
 
-![](./images/safe-052_graph.png)
+![](./images/safe-053_graph.png)
 
 - 進到 The Graph Discord 後，點選下方【完成】→【勾選】「我已詳閱並同意規則」→【提交】→ 點選左側【verify】頻道 → 送出【/verify】訊息 → 此時會有驗證機器人私訊，對他送出顯示的【驗證碼】以完成驗證 → 點選左側【roles】頻道 → 按下【T】鈕以成為測試成員 → 點選左側【testnet-faucet】頻道 → 輸入【!grt <Safe Test 錢包地址>】
 
-![](./images/safe-053_graph.png)
+![](./images/safe-054_graph.png)
 
 - 可以看到已在 Safe Test 錢包內收到 100000 顆 GRT 測試幣了
 
-![](./images/safe-054_graph.png)
+![](./images/safe-055_graph.png)
 
 ### 透過 WalletConnect 開源協議，將「Safe Test」錢包連接至 The Graph 服務
 
-- 
+- - 因為 Gnosis Safe 沒有內建 The Graph APP，所以要使用 WalletConnect 開源協議來連線，請先到 [The Graph on Rinkeby Testnet](https://testnet.thegraph.com/) 官網 → 點選【連接錢包】→ 點選【WalletConnect】→ 點選【複製到剪貼板】
 
-### 協調「Safe Test」多簽錢包的 3 位管理者，將其中的 0.01 ETH 用作 Curator 來 Signal 其中一項 Subgraph
+  - 注意：這是 The Graph 在 Rinkeby 測試網上的官網，若要使用主鏈請使用此連結：[The Graph on Mainnet](https://thegraph.com/)
 
--
+![](./images/safe-056_graph.png)
+
+- 回到 Safe Test 錢包，請先點選 MetaMask 右上角【帳戶圖示】→ 點選【Account 2】切換到 Account 2 → 點選【APPS】→【WalletConnect】→ 在「Wallet Connect」下方【貼上】剛才複製的連接資訊，即可看到 Graph Explorer APP 已完成連線 → 點選【[The Graph on Rinkeby Testnet](https://testnet.thegraph.com/)】快速回到 DAPP 網站 → 可以看到右上角 The Graph 已透過 Wallet Connect 完成 Safe Test 連線
+
+![](./images/safe-057_graph.png)
+
+### 協調「Safe Test」多簽錢包的 3 位管理者，將其中的 100 GRT 用作 Curator 來 Signal 其中一項 Subgraph
+
+- 接下來我們要成為 Curator 給某個 Subgraph（這邊以 PoolTogether Subgraph 為例）給予 Signal，請點選【PoolTogether】→ 點選【Signal】→ 輸入【100】GRT →【Infinite Approve】
+
+![](./images/safe-058_graph.png)
+
+- 此時另一邊 Safe Test 錢包網站會跳出交易訊息，請點選【Submit】→ 再點選【簽署】鈕完成 Account 2 的同意簽署
+
+![](./images/safe-059_graph.png)
+
+- 這時我們要使用 Account 3 進行拒絕，請點選左側【TRANSACTION】→【QUEUE】→【WalletConnectapprove】→ 點選 MetaMask 左上角【帳戶圖示】→【Account 3】切換至 Account 3 → 點選【Reject】→【Reject transation】→ 點選【簽署】完成 Account 3 的交易拒絕
+
+![](./images/safe-060_graph.png)
+
+- 這時我們要使用 Account 4 進行拒絕，同樣請點選左側【TRANSACTION】→【QUEUE】→【ON-CHAIN REJECTION】（拒絕交易之意，若反之要允許則是點選上方 WalletConnectapprove）→ 點選 MetaMask 左上角【帳戶圖示】→【Account 4】切換至 Account 4 → 點選【Confirm】→【勾選】「Excute transaction」表示支付手續費 →【Submit】→【確認】完成一整個 The Graph 的 Signal 的拒絕流程
+
+![](./images/safe-061_graph.png)
+
+- 可以從【TRANSACTIONS】→【HISTORY】→【On-chain rejection】看到這次整個多簽的拒絕流程
+
+![](./images/safe-062_graph.png)
 
 ## 10、總結
   Conclusion
@@ -377,6 +407,8 @@
 
 ## 11、本文架構
   Architecture of this article
+
+![](./images/safe-063_safe.png)
 
 ## 12、參考文獻
   References
@@ -400,7 +432,8 @@
   - 潘致雄（鏈新聞）- [這輪 DAO 熱潮中永不發幣的 Snapshot 為何最值得關注？](https://www.abmedia.io/what-snapshot-is-notable-in-dao-trends)
 
 - The Graph
-  - [The Graph](https://thegraph.com/) 官網
+  - [The Graph on Mainnet](https://thegraph.com/) 官網
+  - [The Graph on Rinkeby Testnet](https://testnet.thegraph.com/) 測試網官網
   - Andrew（每日幣研）- [The Graph：4 種分工角色，理解區塊鏈上的Google](https://cryptowesearch.com/blog/all/grt-intro)
 
 - DAO & DeFi
