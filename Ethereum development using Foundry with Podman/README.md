@@ -194,3 +194,23 @@ ghcr.io/foundry-rs/foundry:latest
 ```
 
 ![](./images/foundry-003_work_dir.png)
+
+- 將 foundry 容器關閉以結束本次實作
+
+```bash
+~ % podman container stop foundry
+~ % podman container list --all
+```
+
+- （可不做）若需要重新開啟 foundry 容器可執行以下指令
+
+```bash
+~ % podman container start foundry
+```
+
+- （可不做）或是直接將 foundry 容器從磁碟刪除（-f=--force：強制不提示）
+
+```bash
+~ % podman container rm -f foundry
+~ % podman volume prune
+```
