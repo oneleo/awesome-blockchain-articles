@@ -71,7 +71,7 @@
 
 ```bash
 ~ % podman login docker.io --verbose
-~ % podman push docker.io/oneleo/foundry:0.0.1
+~ % podman push docker.io/<YOUR NAME>/foundry:0.0.1
 ```
 
 - （可不做）測試 Podman（-i=--interactive：保持標準輸入開啟，-t=--tty：保持對外終端開啟，--rm：容器工作結束後刪除，--replace：容器名稱重複不提示取代，--entrypoint：取代映像檔預定執行程式，-v=--volume：掛載目錄至容器）
@@ -123,15 +123,17 @@
 ghcr.io/foundry-rs/foundry:latest
 
 ~ % podman container list --all
+```
 
 - （可不做）查看 foundry 容器狀態（「podman exec」=「podman container exec」）
 
+```bash
 ~ % podman container exec -it foundry /bin/sh -c 'ls -al /opt/foundry_project'
 
 ~ % podman exec -it foundry /bin/sh -c 'printf "$(hostname -i)\n$(cat /etc/hosts)\n$(cat /etc/resolv.conf)\n$(netstat -peanutlx)"'
 ```
 
-## 在 Foundry 容器內安裝必要依賴套件
+## 在 Foundry 容器內安裝必要依賴套件，及設置 Git 所需變數
 
 - 在 foundry 容器內安裝 forge 所需依賴套件
 
